@@ -38,6 +38,7 @@ func init() {
 	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.stw.yaml)")
 	rootCmd.PersistentFlags().StringVarP(&apiKey, "api-key", "k", "", "Ocelloids API key")
 	rootCmd.PersistentFlags().StringVarP(&httpUrl, "http-url", "u", "https://dev-api.ocelloids.net", "HTTP API base URL")
+	rootCmd.CompletionOptions.HiddenDefaultCmd = true
 
 	viper.BindPFlag("api-key", rootCmd.PersistentFlags().Lookup("api-key"))
 	viper.BindPFlag("http-url", rootCmd.PersistentFlags().Lookup("http-url"))
