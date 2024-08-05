@@ -23,7 +23,7 @@ Use "steward [command] --help" for more information about a command.
 
 ## Usage
 
-### 1. Download Assets Data
+### Download Assets Data
 
 Fetch assets data and save it to a JSON Lines (JSONL) file:
 
@@ -37,7 +37,7 @@ To convert the JSONL file into a JSON array, use `jq`:
 jq --slurp . < assets.jsonl > assets.json
 ```
 
-### 2. Download Chains Data
+### Download Chains Data
 
 Fetch chains data and save it to a JSONL file:
 
