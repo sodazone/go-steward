@@ -21,7 +21,7 @@ func croak(err error) {
 // fetchCmd represents the fetch command
 var fetchCmd = &cobra.Command{
 	Use:       "fetch [assets or chains]",
-	Short:     "Streams either assets or chains data to stdout",
+	Short:     "Prints assets or chains data to stdout",
 	ValidArgs: []string{"assets", "chains"},
 	Args:      cobra.MatchAll(cobra.ExactArgs(1), cobra.OnlyValidArgs),
 	Run: func(cmd *cobra.Command, args []string) {

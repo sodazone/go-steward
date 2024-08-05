@@ -9,7 +9,7 @@ Usage:
   steward [command]
 
 Available Commands:
-  fetch       Streams either assets or chains data to stdout
+  fetch       Prints assets or chains data to stdout
   help        Help about any command
 
 Flags:
