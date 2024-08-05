@@ -32,7 +32,7 @@ const PUB_KEY = "eyJhbGciOiJFZERTQSIsImtpZCI6IklSU1FYWXNUc0pQTm9kTTJsNURrbkJsWkJ
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
 	Use:   "steward [assets or chains]",
-	Short: "Ocelloids Data Steward Agent command line interface",
+	Short: "Ocelloids Data Steward Agent command-line interface",
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.
