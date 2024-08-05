@@ -21,14 +21,30 @@ Flags:
 Use "steward [command] --help" for more information about a command.
 ```
 
----
+## Usage
 
-NOTES
+### 1. Download Assets Data
 
-to clean up :)
+Fetch assets data and save it to a JSON Lines (JSONL) file:
 
+```bash
+steward fetch assets > assets.jsonl
 ```
+
+To convert the JSONL file into a JSON array, use `jq`:
+
+```bash
 jq --slurp . < assets.jsonl > assets.json
 ```
 
-go run main.go download --http-url http://127.0.0.1:3000 | jq --slurp . > assets.json
+### 2. Download Chains Data
+
+Fetch chains data and save it to a JSONL file:
+
+```bash
+steward fetch chains > chains.jsonl
+```
+
+---
+
+Have fun!
