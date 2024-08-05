@@ -1,3 +1,6 @@
+// Copyright 2024 team@soda.zone
+// SPDX-License-Identifier: Apache-2.0
+
 package client
 
 import (
