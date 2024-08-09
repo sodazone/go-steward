@@ -28,13 +28,24 @@ var fetchCmd = &cobra.Command{
 		apiKey, err := cmd.Root().PersistentFlags().GetString("api-key")
 		croak(err)
 
-		if apiKey == "" {
-			apiKey = PUB_KEY
-		}
 		httpUrl, err := cmd.Root().PersistentFlags().GetString("http-url")
 		croak(err)
 
-		var oc = client.NewOcelloidsClient(apiKey, httpUrl)
+		limit, err := cmd.Root().PersistentFlags().GetUint16("limit")
+		croak(err)
+
+		cursor, err := cmd.Root().PersistentFlags().GetString("cursor")
+		croak(err)
+
+		pagination := client.Pagination{
+			Limit: limit,
+		}
+
+		if cursor != "" {
+			pagination.Cursor = cursor
+		}
+
+		var oc = client.NewOcelloidsClient(apiKey, httpUrl, pagination)
 
 		if len(args) > 0 && args[0] == "chains" {
 			err = oc.FetchChains()

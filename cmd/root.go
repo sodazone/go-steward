@@ -7,15 +7,12 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/sodazone/go-steward/client"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
 
 var cfgFile string
-var apiKey string
-var httpUrl string
-
-const PUB_KEY = "eyJhbGciOiJFZERTQSIsImtpZCI6IklSU1FYWXNUc0pQTm9kTTJsNURrbkJsWkJNTms2SUNvc0xBRi16dlVYX289In0.ewogICJpc3MiOiAiZGV2LWFwaS5vY2VsbG9pZHMubmV0IiwKICAianRpIjogIjAxMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwIiwKICAic3ViIjogInB1YmxpY0BvY2VsbG9pZHMiCn0K.bjjQYsdIN9Fx34S9Of5QSKxb8_aOtwURInOGSSc_DxrdZcnYWi-5nnZsh1v5rYWuRWNzLstX0h1ICSH_oAugAQ"
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
@@ -36,12 +33,15 @@ func init() {
 	cobra.OnInitialize(initConfig)
 
 	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.stw.yaml)")
-	rootCmd.PersistentFlags().StringVarP(&apiKey, "api-key", "k", "", "Ocelloids API key")
-	rootCmd.PersistentFlags().StringVarP(&httpUrl, "http-url", "u", "https://dev-api.ocelloids.net", "HTTP API base URL")
+	rootCmd.PersistentFlags().StringP("api-key", "k", "", "Ocelloids API key")
+	rootCmd.PersistentFlags().StringP("http-url", "u", client.HTTP_URL, "HTTP API base URL")
+	rootCmd.PersistentFlags().StringP("cursor", "c", "", "Page cursor")
+	rootCmd.PersistentFlags().Uint16P("limit", "l", 25, "Max results per page")
 	rootCmd.CompletionOptions.HiddenDefaultCmd = true
 
 	viper.BindPFlag("api-key", rootCmd.PersistentFlags().Lookup("api-key"))
 	viper.BindPFlag("http-url", rootCmd.PersistentFlags().Lookup("http-url"))
+	viper.BindPFlag("limit", rootCmd.PersistentFlags().Lookup("limit"))
 }
 
 // initConfig reads in config file and ENV variables if set.

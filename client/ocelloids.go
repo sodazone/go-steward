@@ -14,11 +14,15 @@ import (
 	"time"
 )
 
+const HTTP_URL = "https://api.ocelloids.net"
+const PUB_KEY = "eyJhbGciOiJFZERTQSIsImtpZCI6Im92SFVDU3hRM0NiYkJmc01STVh1aVdjQkNZcDVydmpvamphT2J4dUxxRDQ9In0.ewogICJpc3MiOiAiYXBpLm9jZWxsb2lkcy5uZXQiLAogICJqdGkiOiAiMDEwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAiLAogICJzdWIiOiAicHVibGljQG9jZWxsb2lkcyIKfQo.qKSfxo6QYGxzv40Ox7ec6kpt2aVywKmhpg6lue4jqmZyY6y3SwfT-DyX6Niv-ine5k23E0RKGQdm_MbtyPp9CA"
+
 type OcelloidsClient struct {
 	apiKey  string
 	httpUrl string
 	//wsUrl   string
-	enc *json.Encoder
+	enc        *json.Encoder
+	pagination Pagination
 }
 
 type PageInfo struct {
@@ -33,7 +37,7 @@ type QueryResult struct {
 
 type Pagination struct {
 	Cursor string `json:"cursor"`
-	Limit  int    `json:"limit"`
+	Limit  uint16 `json:"limit"`
 }
 
 type QueryArgs struct {
@@ -45,14 +49,19 @@ type Query struct {
 	Args       QueryArgs  `json:"args"`
 }
 
-func NewOcelloidsClient(apiKey string, httpUrl string) *OcelloidsClient {
+func NewOcelloidsClient(apiKey string, httpUrl string, pagination Pagination) *OcelloidsClient {
 	enc := json.NewEncoder(os.Stdout)
 	enc.SetIndent("", "  ")
+
+	if apiKey == "" {
+		apiKey = PUB_KEY
+	}
 
 	return &OcelloidsClient{
 		apiKey,
 		httpUrl,
 		enc,
+		pagination,
 	}
 }
 
@@ -66,9 +75,7 @@ func (client OcelloidsClient) FetchChains() error {
 
 func (client OcelloidsClient) execOp(op string) error {
 	return client.post(Query{
-		Pagination: Pagination{
-			Limit: 10,
-		},
+		Pagination: client.pagination,
 		Args: QueryArgs{
 			Op: op,
 		},
@@ -100,7 +107,6 @@ func (client OcelloidsClient) post(query Query) error {
 
 	defer res.Body.Close()
 
-	// TODO: test retries...
 	if res.StatusCode == 429 {
 		delay, err := strconv.Atoi(res.Header.Get("Retry-After"))
 		if err == nil {
