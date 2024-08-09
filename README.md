@@ -34,14 +34,11 @@ To install the Ocelloids Data Steward CLI, download the appropriate binary for y
 
 3. **Download the Binary**: Click on the appropriate binary to start the download.
 
-4. **Make the Binary Executable**: Once downloaded, ensure the binary is executable (only necessary on Unix-based systems). Use the following command:
-
-   ```bash
-   chmod +x steward
-   ```
+4. **Extract the Binary**: Once downloaded, extract the `go-steward` binary.
+   
 5. **Move the Binary to a Directory in Your PATH**: Move the binary to a directory included in your system's PATH environment variable for easy access:
    ```bash
-   mv steward /usr/local/bin/
+   mv go-steward /usr/local/bin/steward
    ```
 6. **Verify Installation**: Confirm the installation by running the following command:
    ```bash
