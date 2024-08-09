@@ -15,8 +15,10 @@ Available Commands:
 Flags:
   -k, --api-key string    Ocelloids API key
       --config string     config file (default is $HOME/.stw.yaml)
+  -c, --cursor string     Page cursor
   -h, --help              help for steward
-  -u, --http-url string   HTTP API base URL (default "https://dev-api.ocelloids.net")
+  -u, --http-url string   HTTP API base URL (default "https://api.ocelloids.net")
+  -l, --limit uint16      Max results per page (default 25)
 
 Use "steward [command] --help" for more information about a command.
 ```
